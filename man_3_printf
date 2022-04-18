@@ -1,4 +1,4 @@
-.\" Manpage for _printf
+.\"Manpage for _printf"
 .TH man 8 "3/8/2022" "1.0" "_printf man page"
 .SH NAME
 _printf - format and write a string, character or integer to stdout
