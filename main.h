@@ -1,82 +1,61 @@
-#ifndef _GLOBAL_DEFINITIONS_H
-#define _GLOBAL_DEFINITIONS_H
-
-/* #include "global_definitions.h" */
-
-#endif
-
-#ifndef STDLIB_H
-#define STDLIB_H
-
-#include <stdlib.h>
-
-#endif
-
-#ifndef STDARG_H
-#define STDARG_H
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 #include <stdarg.h>
-
-#endif
-
-#ifndef _HOLBERTON_H
-#define _HOLBERTON_H
+#include <unistd.h>
+#include <stdlib.h>
 
 /**
- * struct print_buffer - structer for the write buffer.
- * @index: current index of the buffer.
- * @size: size of the buffer.
- * @overflow: this recoreds the overflow.
- * @str: pointer to memory that contains the content for this buffer.
+ * struct print - struct for printer functions
+ * @type_arg: identifier
+ * @f: pointer to a printer functions
+ *
+ * Description: struct that stores pointers to a
+ * printer functions.
  */
-typedef struct print_buffer
+typedef struct print
 {
-	size_t index;
-	size_t size;
-	size_t overflow;
-	char *str;
-} buffer;
-
-buffer *buf_new();
-buffer *buf_custom(size_t);
-size_t buf_size(buffer *);
-size_t buf_index(buffer *);
-char *buf_content(buffer *);
-void buf_write(buffer *);
-void buf_end(buffer *);
-void buf_wr(buffer *);
-void buf_inc(buffer *);
-
-/**
- * struct print_ops - struct for the write operators.
- * @op: hold a symbol that represents the operator.
- * @fn: pointer function to the write functions.
- */
-typedef struct print_ops
-{
-	char *op;
-	int (*fn)(buffer *, va_list);
-} prtOp;
-
-prtOp *prtOp_init();
-
-void append_num(buffer *buf, unsigned int num);
-
-int write_bin(buffer *buf, va_list v_ls);
-
-/* Martin Above / Samie Below */
+	char *type_arg;
+	int (*f)(va_list, char *, unsigned int);
+} print_t;
 
 int _printf(const char *format, ...);
+int print_prg(va_list __attribute__((unused)), char *, unsigned int);
+int print_chr(va_list arguments, char *buf, unsigned int ibuf);
+int print_str(va_list arguments, char *buf, unsigned int ibuf);
+int print_int(va_list arguments, char *buf, unsigned int ibuf);
+int print_bnr(va_list arguments, char *buf, unsigned int ibuf);
+int print_unt(va_list arguments, char *buf, unsigned int ibuf);
+int print_oct(va_list arguments, char *buf, unsigned int ibuf);
+int print_hex(va_list arguments, char *buf, unsigned int ibuf);
+int print_upx(va_list arguments, char *buf, unsigned int ibuf);
+int print_usr(va_list arguments, char *buf, unsigned int ibuf);
+int print_add(va_list arguments, char *buf, unsigned int ibuf);
+int print_rev(va_list arguments, char *buf, unsigned int ibuf);
+int print_rot(va_list arguments, char *buf, unsigned int ibuf);
+int prinlint(va_list arguments, char *buf, unsigned int ibuf);
+int prinlunt(va_list arguments, char *buf, unsigned int ibuf);
+int prinloct(va_list arguments, char *buf, unsigned int ibuf);
+int prinlhex(va_list arguments, char *buf, unsigned int ibuf);
+int prinlupx(va_list arguments, char *buf, unsigned int ibuf);
+int prinhint(va_list arguments, char *buf, unsigned int ibuf);
+int prinhunt(va_list arguments, char *buf, unsigned int ibuf);
+int prinhoct(va_list arguments, char *buf, unsigned int ibuf);
+int prinhhex(va_list arguments, char *buf, unsigned int ibuf);
+int prinhupx(va_list arguments, char *buf, unsigned int ibuf);
+int prinpint(va_list arguments, char *buf, unsigned int ibuf);
+int prinnoct(va_list arguments, char *buf, unsigned int ibuf);
+int prinnhex(va_list arguments, char *buf, unsigned int ibuf);
+int prinnupx(va_list arguments, char *buf, unsigned int ibuf);
+int prinsint(va_list arguments, char *buf, unsigned int ibuf);
+int (*get_print_func(const char *s, int index))(va_list, char *, unsigned int);
+int ev_print_func(const char *s, int index);
+unsigned int handl_buf(char *buf, char c, unsigned int ibuf);
+int print_buf(char *buf, unsigned int nbuf);
+char *fill_binary_array(char *binary, long int int_in, int isneg, int limit);
+char *fill_oct_array(char *bnr, char *oct);
+char *fill_long_oct_array(char *bnr, char *oct);
+char *fill_short_oct_array(char *bnr, char *oct);
+char *fill_hex_array(char *bnr, char *hex, int isupp, int limit);
 
-int opid(buffer *buf, va_list v_ls, const char *src, int src_i);
-
-int write_char(buffer *buf, va_list v_ls);
-
-int write_str(buffer *buf, va_list v_ls);
-
-int write_mod(buffer *buf, va_list v_ls);
-
-int write_int(buffer *buf, va_list v_ls);
-
-char *itoc(int num, char *dest);
 #endif
